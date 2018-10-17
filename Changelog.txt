@@ -1,3 +1,7 @@
+v2.3 - December 9th, 2015
+o Added "guests" parameter to show/hide the spoiler to guests.  Accepts n, no, false, y, yes, true.
+o Added global default setting to hide spoilers from guests.
+
 v2.2 - November 19th, 2015
 o Fixed issue where bbcode button outputted wrong bbcode when pressed.
 

@@ -7,30 +7,27 @@
 [color=blue][b][size=12pt][u]Introduction[/u][/size][/b][/color]
 This modification adds a BBCode to the forum that allows the post author to hide a changelog in the post, which is clickable to display it to the user.
 
-This BBCode takes the form:
+This BBCode takes the forms:
 [code][nobbc]
-[changelog]{content}[/changelog]
-[changelog text=Blah]{content}[/changelog]
-[changelog quote="Blah"]{content}[/changelog]
+[nobbc][changelog]{content}[/changelog][/nobbc]
+[nobbc][changelog {params}]{content}[/changelog][/nobbc]
+[nobbc][changelog=Some Text]{content goes here}[/changelog][/nobbc]
 [/nobbc][/code]
-Note that quotes are required for the [b]quote[/b] parameter, but not for the [b]text[/b] parameter.  These forms have no issues with other block-level tags inside the [b]changelog[/b] tag.
 
-This BBCode can also take the following form:
-[code][nobbc]
-[changelog=Some Text]{content goes here}[/changelog]
-[/nobbc][/code]
-Note that, for this form, other block-level bbcode tags are not parsed inside this [b]changelog[/b] tags form.
+The [b]{params}[/b] section may be any of the following parameters:
+o [b]text[/b] - Replaces default "changelog" text in the header.
+o [b]quote[/b] - Text that follows the "changelog" text in the header.  Must be in quotes.
+o [b]show[/b] - Replaces default "Show" text in the header.
+o [b]hide[/b] - Replaces default "Hide" text in the header.
+o [b]guests[/b] - Flag to show changelog to guests or not.  May be [b]n[/b], [b]no[/b], [b]false[/b], [b]y[/b], [b]yes[/b], or [b]true[/b].
 
-[u][b]NEW FOR 2.1:[/b][/u]
-Version 2.1 introduces two optional parameters for use:
-o [b]hide[/b] parameter indicates the text to replace the default "hide" string
-o [b]show[/b] parameter indicates the text to replace the default "show" string.
+Note that the form (#3) with the equal sign does not parse other block-level bbcode tags inside the changelog.  Empty form or form with parameters does not have this restriction.
 
 [color=blue][b][size=12pt][u]Admin Settings[/u][/size][/b][/color]
 This BBCode may be disabled by going into the [b]Admin[/b] => [b]Forum[/b] => [b]Posts and Topics[/b] => [b]Bulletin Board Code[/b] and unchecking the bbcodes you don't want to use.  You may also be uninstall this mod in order to disable it.
 
 [color=blue][b][size=12pt][u]Compatibility Notes[/u][/size][/b][/color]
-This mod was tested on SMF 2.0.11, but should work on SMF 2.1 Beta 1, as well as SMF 2.0 and up.  SMF 1.x is not and will not be supported.
+This mod was tested on SMF 2.0.9, but should work on SMF 2.1 Beta 1, as well as SMF 2.0 and up.  SMF 1.x is not and will not be supported.
 
 [color=blue][b][size=12pt][u]Changelog[/u][/size][/b][/color]
 The changelog has been removed and can be seen at [url=http://www.xptsp.com/board/index.php?topic=49.msg150#msg150]XPtsp.com[/url].

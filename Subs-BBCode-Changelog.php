@@ -25,15 +25,16 @@ function BBCode_Changelog(&$bbc)
 			'quote' => array('optional' => true, 'quoted' => true),
 			'show' => array('optional' => true),
 			'hide' => array('optional' => true),
+			'guests' => array('optional' => true, 'match' => '(y|yes|true|n|no|false)'),
 		),
-		'content' => '<div style="padding: 3px; font-size: 1em;"><div style="text-transform: uppercase; border-bottom: 1px solid #5873B0; margin-bottom: 3px; font-size: 0.8em; font-weight: bold; display: block;"><span onClick="if (this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display != \'\') {  this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'\'; this.innerHTML = \'<b>><text>{text}</text>{quote}: </b><a href=\\\'#\\\' onClick=\\\'return false;\\\'><hide>{hide}</hide></a>\'; } else { this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'none\'; this.innerHTML = \'<b><text>{text}</text>{quote}: </b><a href=\\\'#\\\' onClick=\\\'return false;\\\'><show>{show}</show></a>\'; }" /><b><text>{text}</text>{quote}: </b><a href="#" onClick="return false;"><show>{show}</show></a></span></div><div class="quotecontent"><div style="display: none;">$1</div></div></div>',
+		'content' => '{guests}|<div style="padding: 3px; font-size: 1em;"><div style="text-transform: uppercase; border-bottom: 1px solid #5873B0; margin-bottom: 3px; font-size: 0.8em; font-weight: bold; display: block;"><span onClick="if (this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display != \'\') {  this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'\'; this.innerHTML = \'<b>><text>{text}</text>{quote}: </b><a href=\\\'#\\\' onClick=\\\'return false;\\\'><hide>{hide}</hide></a>\'; } else { this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'none\'; this.innerHTML = \'<b><text>{text}</text>{quote}: </b><a href=\\\'#\\\' onClick=\\\'return false;\\\'><show>{show}</show></a>\'; }" /><b><text>{text}</text>{quote}: </b><a href="#" onClick="return false;"><show>{show}</show></a></span></div><div class="quotecontent"><div style="display: none;">$1</div></div></div>',
 		'validate' => 'BBCode_Changelog_Validate',
 		'block-level' => true,
 	);
 	$bbc[] = array(
 		'tag' => 'changelog',
 		'type' => 'unparsed_content',
-		'content' => '<div style="padding: 3px; font-size: 1em;"><div style="text-transform: uppercase; border-bottom: 1px solid #5873B0; margin-bottom: 3px; font-size: 0.8em; font-weight: bold; display: block;"><span onClick="if (this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display != \'\') {  this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'\'; this.innerHTML = \'<b>' . $txt['changelog'] . ': </b><a href=\\\'#\\\' onClick=\\\'return false;\\\'>' . $txt["debug_hide"] . '</a>\'; } else { this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'none\'; this.innerHTML = \'<b>' . $txt['changelog'] . ': </b><a href=\\\'#\\\' onClick=\\\'return false;\\\'>' . $txt["debug_show"] . '</a>\'; }" /><b>' . $txt['changelog'] . ': </b><a href="#" onClick="return false;">' . $txt["debug_show"] . '</a></span></div><div class="quotecontent"><div style="display: none;">$1</div></div></div>',
+		'content' => '{guests}|<div style="padding: 3px; font-size: 1em;"><div style="text-transform: uppercase; border-bottom: 1px solid #5873B0; margin-bottom: 3px; font-size: 0.8em; font-weight: bold; display: block;"><span onClick="if (this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display != \'\') {  this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'\'; this.innerHTML = \'<b>' . $txt['changelog'] . ': </b><a href=\\\'#\\\' onClick=\\\'return false;\\\'>' . $txt["debug_hide"] . '</a>\'; } else { this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'none\'; this.innerHTML = \'<b>' . $txt['changelog'] . ': </b><a href=\\\'#\\\' onClick=\\\'return false;\\\'>' . $txt["debug_show"] . '</a>\'; }" /><b>' . $txt['changelog'] . ': </b><a href="#" onClick="return false;">' . $txt["debug_show"] . '</a></span></div><div class="quotecontent"><div style="display: none;">$1</div></div></div>',
 		'validate' => 'BBCode_Changelog_Validate',
 		'block-level' => true,
 	);
@@ -56,16 +57,20 @@ function BBCode_Changelog(&$bbc)
 function BBCode_Changelog_Validate(&$tag, &$data, &$disabled)
 {
 	global $txt;
-
+	global $txt, $user_info, $modSettings;
+	
 	if (empty($data))
 		return ($tag['content'] = '');
+	$guests = substr($tag['content'], 0, strpos($tag['content'], '|'));
+	if ((!empty($modSettings['changelog_no_guests']) || $guests == 'n' || $guests == 'no' || $guests == 'false') && !empty($user_info['is_guest']))
+		return ($tag['content'] = $txt['changelog_no_guest_html']);
 	$data = parse_bbc($data);
-	$tag['content'] = str_replace('<show></show>', $txt['debug_show'], $tag['content']);
-	$tag['content'] = str_replace('<show>', '', str_replace('</show>', '', $tag['content']));
-	$tag['content'] = str_replace('<hide></hide>', $txt['debug_hide'], $tag['content']);
-	$tag['content'] = str_replace('<show>', '', str_replace('</show>', '', $tag['content']));
-	$tag['content'] = str_replace('<text></text>', $txt['changelog'], $tag['content']);
-	$tag['content'] = str_replace('<text>', '', str_replace('</text>', '', $tag['content']));
+	$str = str_replace('<show></show>', $txt['debug_show'], substr($tag['content'], strpos($tag['content'], '|') + 1));
+	$str = str_replace('<show>', '', str_replace('</show>', '', $str));
+	$str = str_replace('<hide></hide>', $txt['debug_hide'], $str);
+	$str = str_replace('<show>', '', str_replace('</show>', '', $str));
+	$str = str_replace('<text></text>', $txt['changelog'], $str);
+	$tag['content'] = str_replace('<text>', '', str_replace('</text>', '', $str));
 }
 
 function BBCode_Changelog_Button(&$buttons)
@@ -79,6 +84,11 @@ function BBCode_Changelog_Button(&$buttons)
 		'before' => '[changelog]',
 		'after' => '[/changelog]',
 	);
+}
+
+function BBCode_Changelog_Settings(&$config_vars)
+{
+	$config_vars[] = array('check', 'changelog_no_guests');
 }
 
 ?>

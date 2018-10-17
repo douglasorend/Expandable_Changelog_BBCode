@@ -26,15 +26,16 @@ function BBCode_Changelog(&$bbc)
 			'show' => array('optional' => true),
 			'hide' => array('optional' => true),
 			'guests' => array('optional' => true, 'match' => '(y|yes|true|n|no|false)'),
+			'expand' => array('optional' => true, 'match' => '(y|yes|true|n|no|false)'),
 		),
-		'content' => '{guests}|<div style="padding: 3px; font-size: 1em;"><div style="text-transform: uppercase; border-bottom: 1px solid #5873B0; margin-bottom: 3px; font-size: 0.8em; font-weight: bold; display: block;"><span onClick="if (this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display != \'\') {  this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'\'; this.innerHTML = \'<b><text>{text}</text>{quote}: </b><a href=\\\'#\\\' onClick=\\\'return false;\\\'><hide>{hide}</hide></a>\'; } else { this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'none\'; this.innerHTML = \'<b><text>{text}</text>{quote}: </b><a href=\\\'#\\\' onClick=\\\'return false;\\\'><show>{show}</show></a>\'; }" /><b><text>{text}</text>{quote}: </b><a href="#" onClick="return false;"><show>{show}</show></a></span></div><div class="quotecontent"><div style="display: none;">$1</div></div></div>',
+		'content' => '{text}|{quote}|{show}|{hide}|{guests}|{expand}',
 		'validate' => 'BBCode_Changelog_Validate',
 		'block-level' => true,
 	);
 	$bbc[] = array(
 		'tag' => 'changelog',
 		'type' => 'unparsed_content',
-		'content' => '{guests}|<div style="padding: 3px; font-size: 1em;"><div style="text-transform: uppercase; border-bottom: 1px solid #5873B0; margin-bottom: 3px; font-size: 0.8em; font-weight: bold; display: block;"><span onClick="if (this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display != \'\') {  this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'\'; this.innerHTML = \'<b>' . $txt['changelog'] . ': </b><a href=\\\'#\\\' onClick=\\\'return false;\\\'>' . $txt["debug_hide"] . '</a>\'; } else { this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'none\'; this.innerHTML = \'<b>' . $txt['changelog'] . ': </b><a href=\\\'#\\\' onClick=\\\'return false;\\\'>' . $txt["debug_show"] . '</a>\'; }" /><b>' . $txt['changelog'] . ': </b><a href="#" onClick="return false;">' . $txt["debug_show"] . '</a></span></div><div class="quotecontent"><div style="display: none;">$1</div></div></div>',
+		'content' => '|||||',
 		'validate' => 'BBCode_Changelog_Validate',
 		'block-level' => true,
 	);
@@ -56,21 +57,19 @@ function BBCode_Changelog(&$bbc)
 
 function BBCode_Changelog_Validate(&$tag, &$data, &$disabled)
 {
-	global $txt;
 	global $txt, $user_info, $modSettings;
 	
 	if (empty($data))
 		return ($tag['content'] = '');
-	$guests = substr($tag['content'], 0, strpos($tag['content'], '|'));
+	list($text, $quote, $show, $hide, $guests, $expand) = explode('|', $tag['content']);
 	if ((!empty($modSettings['changelog_no_guests']) || $guests == 'n' || $guests == 'no' || $guests == 'false') && !empty($user_info['is_guest']))
 		return ($tag['content'] = $txt['changelog_no_guest_html']);
+	$text = empty($text) ? $txt['changelog'] : $text;
+	$show = empty($show) ? $txt['debug_show'] : $show;
+	$hide = empty($hide) ? $txt['debug_hide'] : $hide;
+	$expand = ($expand == 'y' || $expand == 'yes' || $expand == 'true');
 	$data = parse_bbc($data);
-	$str = str_replace('<show></show>', $txt['debug_show'], substr($tag['content'], strpos($tag['content'], '|') + 1));
-	$str = str_replace('<show>', '', str_replace('</show>', '', $str));
-	$str = str_replace('<hide></hide>', $txt['debug_hide'], $str);
-	$str = str_replace('<show>', '', str_replace('</show>', '', $str));
-	$str = str_replace('<text></text>', $txt['changelog'], $str);
-	$tag['content'] = str_replace('<text>', '', str_replace('</text>', '', $str));
+	$tag['content'] = '<div style="padding: 3px; font-size: 1em;"><div style="text-transform: uppercase; border-bottom: 1px solid #5873B0; margin-bottom: 3px; font-size: 0.8em; font-weight: bold; display: block;"><span onClick="if (this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display != \'\') {  this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'\'; this.innerHTML = \'<b>' . $text . $quote . ': </b><a href=\\\'#\\\' onClick=\\\'return false;\\\'>' . $hide . '</a>\'; } else { this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'none\'; this.innerHTML = \'<b>' . $text . $quote . ': </b><a href=\\\'#\\\' onClick=\\\'return false;\\\'>' . $show . '</a>\'; }" /><b>' . $text . $quote . ': </b><a href="#" onClick="return false;">' . ($expand ? $hide : $show) . '</a></span></div><div class="quotecontent"><div style="display: ' . ($expand ? '' : 'none') . ';">$1</div></div></div>';
 }
 
 function BBCode_Changelog_Button(&$buttons)

@@ -1,3 +1,7 @@
+v3.0 - Febrary 13th, 2016
+o Added "expand" parameter to indicate whether or not the changelog is expanded by default.
+o Rewrote changelog validation function to support new parameter.
+
 v2.4 - December 30th, 2015
 o Fixed minor visual issue with Changelog tag without parameters.
 

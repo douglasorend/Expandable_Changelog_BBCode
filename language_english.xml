@@ -2,7 +2,7 @@
 <!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 <id>Dougiefresh:BBCode_Changelog</id>
-<version>3.1</version>
+<version>3.2</version>
 
 <file name="$languagedir/index.english.php">
 	<operation>
@@ -12,6 +12,7 @@ $txt['changelog'] = "Changelog";
 $txt['debug_hide'] = 'hide';
 $txt['changelog_no_guests'] = 'Check to disable Changelogs for guests globally:';
 $txt['changelog_no_guest_html'] = '[ You must <a href="' . $scripturl . '?action=login">login</a> or <a href="' . $scripturl . '?action=register">register</a> to view this Changelog! ]';
+$txt['changelog_no_border'] = 'Check to disable border beneath Changelog text:';
 ]]></add>
 	</operation>
 </file>
@@ -23,6 +24,7 @@ $txt['changelog'] = "Changelog";
 $txt['debug_hide'] = 'hide';
 $txt['changelog_no_guests'] = 'Check to disable Changelogs for guests globally:';
 $txt['changelog_no_guest_html'] = '[ You must <a href="' . $scripturl . '?action=login">login</a> or <a href="' . $scripturl . '?action=register">register</a> to view this Changelog! ]';
+$txt['changelog_no_border'] = 'Check to disable border beneath Changelog text:';
 ]]></add>
 	</operation>
 </file>

@@ -2,7 +2,7 @@
 <!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 <id>Dougiefresh:BBCode_Changelog</id>
-<version>3.1</version>
+<version>3.2</version>
 
 <file name="$languagedir/index.spanish_latin.php" error="skip">
 	<operation>
@@ -11,7 +11,9 @@
 $txt['spoiler'] = "Changelog";
 $txt['debug_hide'] = 'Ocultar';
 $txt['spoiler_no_guests'] = 'Comprobar al desactivar spoilers para los visitantes globales:';
-$txt['spoiler_no_guest_html'] = '[ Debe <a href="' . $scripturl . '?action=login">Iniciar sesi&oacute;n</a> o <a href="' . $scripturl . '?action=register">Registrarse</a> para ver el spoiler! ]';]]></add>
+$txt['spoiler_no_guest_html'] = '[ Debe <a href="' . $scripturl . '?action=login">Iniciar sesi&oacute;n</a> o <a href="' . $scripturl . '?action=register">Registrarse</a> para ver el spoiler! ]';
+//$txt['changelog_no_border'] = 'Check to disable border beneath Changelog text:';
+]]></add>
 	</operation>
 </file>
 <file name="$languagedir/index.spanish_latin-utf8.php" error="skip">
@@ -20,7 +22,9 @@ $txt['spoiler_no_guest_html'] = '[ Debe <a href="' . $scripturl . '?action=login
 $txt['spoiler'] = "Changelog";
 $txt['debug_hide'] = 'Ocultar';
 $txt['spoiler_no_guests'] = 'Comprobar al desactivar spoilers para los visitantes globales:';
-$txt['spoiler_no_guest_html'] = '[ Debe <a href="' . $scripturl . '?action=login">Iniciar sesión</a> o <a href="' . $scripturl . '?action=register">Registrarse</a> para ver el spoiler! ]';]]></add>
+$txt['spoiler_no_guest_html'] = '[ Debe <a href="' . $scripturl . '?action=login">Iniciar sesión</a> o <a href="' . $scripturl . '?action=register">Registrarse</a> para ver el spoiler! ]';
+//$txt['changelog_no_border'] = 'Check to disable border beneath Changelog text:';
+]]></add>
 	</operation>
 </file>
 </modification>

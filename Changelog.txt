@@ -1,3 +1,6 @@
+v2.4 - December 30th, 2015
+o Fixed minor visual issue with Changelog tag without parameters.
+
 v2.3 - December 9th, 2015
 o Added "guests" parameter to show/hide the spoiler to guests.  Accepts n, no, false, y, yes, true.
 o Added global default setting to hide spoilers from guests.

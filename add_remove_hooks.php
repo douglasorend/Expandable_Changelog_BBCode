@@ -23,7 +23,7 @@ $hook_functions = array(
 	'integrate_pre_include' => '$sourcedir/Subs-BBCode-Changelog.php',
 	'integrate_bbc_codes' => 'BBCode_Changelog',
 	'integrate_bbc_buttons' => 'BBCode_Changelog_Button',
-	'integrate_general_mod_settings' => 'BBCode_Changelog_Settings',
+	'integrate_modify_modifications' => 'BBCode_Changelog_Settings',
 );
 
 // Adding or removing them?

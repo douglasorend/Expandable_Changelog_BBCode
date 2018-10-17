@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+<id>Dougiefresh:BBCode_Changelog</id>
+<version>3.1</version>
+
+<file name="$languagedir/index.spanish_latin.php" error="skip">
+	<operation>
+		<search position="end" />
+		<add><![CDATA[
+$txt['spoiler'] = "Changelog";
+$txt['debug_hide'] = 'Ocultar';
+$txt['spoiler_no_guests'] = 'Comprobar al desactivar spoilers para los visitantes globales:';
+$txt['spoiler_no_guest_html'] = '[ Debe <a href="' . $scripturl . '?action=login">Iniciar sesi&oacute;n</a> o <a href="' . $scripturl . '?action=register">Registrarse</a> para ver el spoiler! ]';]]></add>
+	</operation>
+</file>
+<file name="$languagedir/index.spanish_latin-utf8.php" error="skip">
+		<search position="end" />
+		<add><![CDATA[
+$txt['spoiler'] = "Changelog";
+$txt['debug_hide'] = 'Ocultar';
+$txt['spoiler_no_guests'] = 'Comprobar al desactivar spoilers para los visitantes globales:';
+$txt['spoiler_no_guest_html'] = '[ Debe <a href="' . $scripturl . '?action=login">Iniciar sesión</a> o <a href="' . $scripturl . '?action=register">Registrarse</a> para ver el spoiler! ]';]]></add>
+	</operation>
+</file>
+</modification>

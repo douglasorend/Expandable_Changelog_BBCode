@@ -76,8 +76,8 @@ function BBCode_Changelog_Button(&$buttons)
 		'image' => 'changelog',
 		'code' => 'changelog',
 		'description' => $txt['changelog'],
-		'before' => '[spoiler]',
-		'after' => '[/spoiler]',
+		'before' => '[changelog]',
+		'after' => '[/changelog]',
 	);
 }
 

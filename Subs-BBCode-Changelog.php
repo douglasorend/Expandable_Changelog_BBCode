@@ -26,4 +26,17 @@ function BBCode_Changelog(&$bbc)
 	);
 }
 
+function BBCode_Changelog_Button(&$buttons)
+{
+	global $txt;
+
+	$buttons[count($buttons) - 1][] = array(
+		'image' => 'changelog',
+		'code' => 'changelog',
+		'description' => $txt['changelog'],
+		'before' => '[changelog]',
+		'after' => '[/changelog]',
+	);
+}
+
 ?>

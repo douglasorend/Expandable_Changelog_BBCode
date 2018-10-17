@@ -22,6 +22,7 @@ if (SMF == 'SSI')
 $hook_functions = array(
 	'integrate_pre_include' => '$sourcedir/Subs-BBCode-Changelog.php',
 	'integrate_bbc_codes' => 'BBCode_Changelog',
+	'integrate_bbc_buttons' => 'BBCode_Changelog_Button',
 );
 
 // Adding or removing them?
